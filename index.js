@@ -2,7 +2,7 @@ const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
-const config = require('./config.js');
+const config = require('./Utils/config.js');
 
 const client = new Client({
     intents: [
@@ -61,7 +61,7 @@ client.on('interactionCreate', async interaction => {
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
-        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        await interaction.reply({ content: '> Ha habido un error ejecutando el comando', ephemeral: true });
     }
 });
 
