@@ -69,6 +69,11 @@ module.exports = {
                     .setEmoji('🍷')
                     .setDescription('Muestra la información general del servidor.')
                     .setValue('server'),
+                    new StringSelectMenuOptionBuilder()
+                    .setLabel('Roles')
+                    .setEmoji('🃏')
+                    .setDescription('Muestra los roles del servidor.')
+                    .setValue('roles'),
                 new StringSelectMenuOptionBuilder()
                     .setLabel('Emojis')
                     .setEmoji('☕')
@@ -121,6 +126,35 @@ module.exports = {
                 } else if (i.customId.includes('infoSelect')) {
                     if (i.values[0] === 'server') {
                         await i.update({ embeds: [embedConstructor], components: [row, selectRow] });
+
+                    } else if (i.values[0] === 'roles'){
+                        const allRoles = guild.roles.cache;
+                        const members = await guild.members.fetch();
+                
+                        const botNames = members.filter(member => member.user.bot).map(bot => {
+                            const botName = bot.user.username.toLowerCase();
+                            return botName === 'disboard' ? `${botName}.org` : botName;
+                        });
+                
+                        const filteredRoles = allRoles.filter(role => {
+                            const roleName = role.name.toLowerCase();
+                            return roleName !== '@everyone' &&
+                                !role.name.startsWith('@+─') &&
+                                !botNames.includes(roleName); 
+                        }).sort((a, b) => b.position - a.position);
+                
+                        let description = '';
+                        filteredRoles.forEach(role => {
+                            description += `<@&${role.id}>\n`;
+                        });
+                
+                        const emojiEmbed = new EmbedBuilder()
+                            .setTitle(`Roles de ${guild.name}`)
+                            .setDescription(description || `> **${guild.name}** no dispone de ningún rol`)
+                            .setColor(0x00b0f4);
+                
+                        await i.update({ embeds: [emojiEmbed], components: [selectRow] });
+                        
                     } else if (i.values[0] === 'emojis') {
                         const emojis = guild.emojis.cache.map(emoji => emoji.toString()).join(' ');
                         const emojiEmbed = new EmbedBuilder()
