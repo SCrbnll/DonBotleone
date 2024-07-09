@@ -22,6 +22,7 @@ module.exports = {
 
         const roles = member.roles.cache
             .filter(role => role.name !== '@everyone')
+            .sort((a, b) => b.position - a.position)
             .map(role => role.toString())
             .join(' ') || 'No tiene roles';
 
@@ -31,8 +32,7 @@ module.exports = {
             .first(); // Obtener el primer rol (el más alto con color)
 
         const color = highestRoleWithColor ? `#${highestRoleWithColor.color.toString(16).padStart(6, '0')}` : 'Predeterminado';
-        const flags = user.flags ? user.flags.toArray().map(flag => UserFlags.getEmoji(flag)).join(', ') : 'No tiene';
-        console.log(user.flags.toArray())
+        let flags = user.flags ? user.flags.toArray().map(flag => UserFlags.getEmoji(flag)).join(' ') : 'No tiene';
 
         const embedConstructor = new EmbedBuilder()
             .setTitle(name)
@@ -55,7 +55,7 @@ module.exports = {
                     inline: false
                 },
             )
-            .setThumbnail(user.displayAvatarURL({ dynamic: true }))
+            .setThumbnail(member.displayAvatarURL({dynamic: true }))
             .setColor(color != 'Predeterminado' ? color : '000000')
             .setFooter({
                 text: interaction.client.user.username,
@@ -87,7 +87,7 @@ module.exports = {
                 const selectedUser = await guild.members.fetch(userId);
                 const fetchedUser = await selectedUser.fetch()
                 if (i.customId.includes('userIcon')) {
-                    const iconURL = fetchedUser.user.displayAvatarURL({ dynamic: true, size: 1024 });
+                    const iconURL = selectedUser.displayAvatarURL({ dynamic: true, size: 1024 });
                     if (iconURL) {
                         const iconEmbed = new EmbedBuilder()
                             .setTitle(`Avatar de ${selectedUser.user.username}`)
