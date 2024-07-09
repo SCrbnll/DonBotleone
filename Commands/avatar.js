@@ -11,14 +11,20 @@ module.exports = {
         ),
     async execute(interaction) {
         const user = interaction.options.getUser('usuario') || interaction.user;
-        const embedConstructor = new EmbedBuilder()
-            .setTitle(`Avatar de ${user.username}`)
-            .setImage(user.displayAvatarURL({ dynamic: true, size: 1024 }))
-            .setColor(0x000000)
-            .setFooter({
-                text: `User ID: ${user.id}`,
-            });
-        interaction.reply({ embeds: [embedConstructor] });
+        const avatarURL = user.displayAvatarURL({ dynamic: true, size: 1024 });
+        if (avatarURL) {
+            const embedConstructor = new EmbedBuilder()
+                .setTitle(`Avatar de ${user.username}`)
+                .setImage(avatarURL)
+                .setColor(0x000000)
+                .setFooter({
+                    text: `User ID: ${user.id}`,
+                });
+            interaction.reply({ embeds: [embedConstructor] });
+        } else {
+            await interaction.reply({ content: `> **${user.username}** no tiene un banner establecido.` });
+        }
+
     }
 };
 

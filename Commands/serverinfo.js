@@ -14,6 +14,10 @@ module.exports = {
         const voiceChannels = guild.channels.cache.filter(channel => channel.type === ChannelType.GuildVoice).size;
         const threadChannels = guild.channels.cache.filter(channel => channel.isThread()).size;
         const creationTimestamp = Math.floor(guild.createdAt / 1000);
+        
+        const members = await guild.members.fetch();
+        const totalUsers = members.filter(member => !member.user.bot).size;
+        const totalBots = members.filter(member => member.user.bot).size;
 
         const embedConstructor = new EmbedBuilder()
             .setAuthor({
@@ -25,7 +29,7 @@ module.exports = {
                 { name: "Dueño/a", value: `<@${owner.id}>`, inline: true },
                 { name: "Fecha creación", value: `<t:${creationTimestamp}:d>`, inline: true },
                 { name: `Canales (${textChannels + voiceChannels + threadChannels})`, value: `**${textChannels}** texto | **${voiceChannels}** voz | **${threadChannels}** hilo`, inline: true },
-                { name: "Miembros", value: `${guild.memberCount}`, inline: true },
+                { name: `Miembros (${guild.memberCount})`, value: `**${totalUsers}** usuarios | **${totalBots}** bots`, inline: true },
                 { name: "Mejoras", value: `${guild.premiumSubscriptionCount || 0}`, inline: true },
                 { name: "Emojis", value: `${guild.emojis.cache.size}`, inline: true },
                 { name: "Roles", value: `${guild.roles.cache.size}`, inline: true },

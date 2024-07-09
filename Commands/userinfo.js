@@ -32,7 +32,9 @@ module.exports = {
             .first(); // Obtener el primer rol (el más alto con color)
 
         const color = highestRoleWithColor ? `#${highestRoleWithColor.color.toString(16).padStart(6, '0')}` : 'Predeterminado';
-        let flags = user.flags ? user.flags.toArray().map(flag => UserFlags.getEmoji(flag)).join(' ') : 'No tiene';
+        const flags = user.flags ? user.flags.toArray().map(flag => UserFlags.getEmoji(flag)).join(' ') : 'No tiene';
+
+        console.log(user.flags.toArray())
 
         const embedConstructor = new EmbedBuilder()
             .setTitle(name)
@@ -78,8 +80,8 @@ module.exports = {
 
         await interaction.reply({ embeds: [embedConstructor], components: [row] });
 
-        const filter = i => i.user.id === interaction.user.id;
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+        const filter = i => i.user.id === interaction.user.id; // SOLO ANFITRION USUARIO PUEDE EJECUTAR BOTONES
+        const collector = interaction.channel.createMessageComponentCollector({ time: 60000 });
 
         collector.on('collect', async i => {
             try {
