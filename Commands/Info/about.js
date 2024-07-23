@@ -15,7 +15,7 @@ module.exports = {
           inline: false
         },
       )
-      .setImage('https://www.short.ink/LuVWmcEvzBF')
+      .setImage('https://media.discordapp.net/attachments/1258826112059052134/1258827035720286248/about.jpeg?ex=6699f049&is=66989ec9&hm=3d27a46ac8f6d0adceccfd186c13a6c00d375b767ec9f73c12f95547c288ddbe&=&format=webp&width=1018&height=636')
       .setColor(0x000000)
       .setFooter({
         text: interaction.guild.name,

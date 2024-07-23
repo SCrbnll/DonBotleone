@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const UserFlags = require('./../Utils/userflags');
+const UserFlags = require('../../Utils/userflags');
 
 module.exports = {
     data: new SlashCommandBuilder()

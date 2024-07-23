@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord.js');
+const path = require('path')
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
@@ -13,22 +14,37 @@ const client = new Client({
         GatewayIntentBits.DirectMessageReactions,
     ]
 });
+const clientco = {
+    commands: new Map(), // Simulación de la estructura de comandos del cliente
+};
 
-client.commands = new Collection();
+clientco.commands = new Collection();
 const clientId = config.client_id;
 const guildId = config.guild_id;
 
 // Registro de comandos slash
 const commands = [];
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+function readCommands(dir) {
+    const files = fs.readdirSync(dir);
 
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    commands.push(command.data);
-    client.commands.set(command.data.name, command);
+    for (const file of files) {
+        const filePath = path.join(dir, file);
+        const stat = fs.lstatSync(filePath);
+
+        if (stat.isDirectory()) {
+            readCommands(filePath); // Llamada recursiva
+        } else if (file.endsWith('.js')) {
+            const command = require(filePath);
+            commands.push(command.data);
+            clientco.commands.set(command.data.name, command);
+        }
+    }
 }
 
+readCommands(path.resolve(__dirname, './commands'));
+
 const rest = new REST({ version: '9' }).setToken(config.token);
+
 (async () => {
     try {
         console.log('Started refreshing application (/) commands.');
@@ -54,7 +70,7 @@ client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
 
     const { commandName } = interaction;
-    const command = client.commands.get(commandName);
+    const command = clientco.commands.get(commandName);
 
     if (!command) return;
     try {
