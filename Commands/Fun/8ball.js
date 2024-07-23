@@ -40,7 +40,7 @@ module.exports = {
                 .setTitle('🎱 La mágica bola del 8')
                 .setDescription(`> **Pregunta:** ${pregunta}\n> \n> **Respuesta :** ${respuesta}\n `)
                 .setColor(0x000000)
-                .setThumbnail('https://media.tenor.com/jkhI4ah_1EMAAAAj/eightball.gif')
+                .setThumbnail('https://images-ext-1.discordapp.net/external/3BUNi4hKclpmx5X8Cm_2CbksA1GRealHptNV34p_QN8/https/media.tenor.com/jkhI4ah_1EMAAAAj/eightball.gif')
                 
     
             await interaction.reply({ embeds: [embedConstructor] });

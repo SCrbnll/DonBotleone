@@ -41,7 +41,7 @@ module.exports = {
                             `**Compatibilidad:** ${porcentaje}%\n **Mensaje:** ${mensajeAmor}\n ${barraProgreso}`
                             )
             .setColor(0xFF69B4)
-            .setThumbnail('https://media.tenor.com/17DcqIkp0e4AAAAj/heart-love.gif');;
+            .setThumbnail('https://images-ext-1.discordapp.net/external/Of0T2THrYg0JoPUkou8Wzfy8nX19GkYy3bxXaVxTkv8/https/media.tenor.com/17DcqIkp0e4AAAAj/heart-love.gif');
 
         await interaction.reply({ embeds: [embed] });
     }
