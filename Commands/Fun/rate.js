@@ -24,6 +24,7 @@ module.exports = {
             .setTitle('Puntuación de usuario')
             .setDescription(`<@${usuario.id}>\n> **Nombre :** ${prcname}/10\n>  **Imagen :** ${prcimg}\n>  **Banner :** ${prcbanner}`)
             .setColor(0xFF69B4)
+            .setThumbnail('https://images-ext-1.discordapp.net/external/C28y6fSe8Q8DvRcOBqEHVAT-pFZXPdclg2zZMtQWIP8/https/media.tenor.com/cFwoEuBIp7oAAAAM/noted-anime.gif')
         await interaction.reply({ embeds: [embed] });
     }
 };
