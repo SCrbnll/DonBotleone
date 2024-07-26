@@ -37,7 +37,6 @@ module.exports = {
             }
 
             const capitalizedName = capitalizeFirstLetter(pokemonData.species.name);
-            const typeEmojis = pokemonData.types.map(typeInfo => Pokemon.getEmoji(typeInfo.type.name)).join(' ');
 
             const embed = new EmbedBuilder()
                 .setTitle(`Información sobre ${capitalizedName}`)
@@ -46,7 +45,7 @@ module.exports = {
                     { name: 'ID', value: `${pokemonData.id}`, inline: true },
                     { name: 'Altura', value: `${pokemonData.height / 10} m`, inline: true },
                     { name: 'Peso', value: `${pokemonData.weight / 10} kg`, inline: true },
-                    { name: 'Tipos', value: typeEmojis, inline: true },
+                    { name: 'Tipos', value: pokemonData.types.map(typeInfo => typeInfo.type.name).join(', '), inline: true },
                     { name: 'Habilidades', value: pokemonData.abilities.map(abilityInfo => abilityInfo.ability.name).join(', '), inline: true }
                 )
                 .setThumbnail(img)

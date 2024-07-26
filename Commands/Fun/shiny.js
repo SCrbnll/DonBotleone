@@ -32,7 +32,7 @@ module.exports = {
 
             const embed = new EmbedBuilder()
                 .setTitle(`Shiny de ${capitalizedName}`)
-                .setDescription('Para ver la información del pokemon ejecute el comando\n ' + `**/pokemon ${pokemonData.name}**`)
+                .setDescription('Para ver la información del pokemon ejecute el comando\n ' + `**/pokemon nombre: ${pokemonData.name}**`)
                 .setImage(img)
                 .setColor(0xFF0000);
 
