@@ -19,7 +19,7 @@ module.exports = {
         },
         {
           name: "🔍 APIs",
-          value: "[PokéAPI](https://pokeapi.co/)\n a",
+          value: "[PokéAPI](https://pokeapi.co/)\n [GitHub API](https://docs.github.com/es/rest)",
           inline: true
         },
     )
