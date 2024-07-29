@@ -112,11 +112,10 @@ module.exports = {
 
             embed.setDescription(
                 `${targetUser} eligió ${targetUserChoice.name + ' ' + targetUserChoice.emoji}\n
-                ${interaction.user} eligió ${initialUserChoice.name + ' ' + initialUserChoice.emoji}
-                \n\n${result}`
+                ${interaction.user} eligió ${initialUserChoice.name + ' ' + initialUserChoice.emoji}`
             )
 
-            reply.edit({content: `Partida finalizada`, embeds: [embed], components: []})
+            reply.edit({content: `Partida finalizada\n**${result}**`, embeds: [embed], components: []})
 
         } catch (error) {
             console.log(error)
