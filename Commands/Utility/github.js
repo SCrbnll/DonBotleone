@@ -69,7 +69,6 @@ module.exports = {
                 const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
     
                 collector.on('collect', async i => {
-                    const githubUser = i.customId.split('-')[1];
                     try {
                         if (i.customId.includes('githubSelect')) {
                             if (i.values[0] === 'info') {
