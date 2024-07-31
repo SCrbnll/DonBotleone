@@ -1,6 +1,4 @@
 const { SlashCommandBuilder, PermissionsBitField  } = require('discord.js');
-const config = require('./../../Utils/config.js');
-const updateConfig = require('./../../Utils/updateConfig.js');
 
 module.exports = {
     data: new SlashCommandBuilder()

@@ -84,14 +84,46 @@ module.exports = {
                                 "</serverbanner:1260259005440458786> - Muestra el banner del servidor\n> " + 
                                 "</serverinfo:1260220375699296270> - Muestra información sobre el servidor\n "
                             )
-                            .setColor(0x00b0f4)
+                            .setColor(0x000000)
                             .setAuthor({name: client.user.username ,iconURL: client.user.displayAvatarURL({ dynamic: true }),});
 
                         await i.update({ embeds: [infoEmbed], components: [selectRow] });
 
                     } else if (i.values[0] === 'entrete') {
-                        // EDITAR SOBRE LA MARCHA
-                        await i.update({ embeds: [embedConstructor], components: [selectRow] });
+                        const entreteEmbed = new EmbedBuilder()
+                            .setTitle(`Comandos de entretenimiento`)
+                            .setDescription(
+                                "> </8ball:1265391944511520892> - Realiza una pregunta a la mágica bola del 8\n> " +
+                                "</choose:1265391944511520893> - Realiza una elección entre opciones\n> " +
+                                "</mixnames:1265391944511520894> - Mezcla los nombres de dos usuarios\n> " + 
+                                "</pokemon:1265391944511520895> - Obtén información sobre un Pokémon\n> " + 
+                                "</shiny:1265391944511520897> - Visualiza el shiny de un pokemon\n> " + 
+                                "</rate:1265391944511520896> - El bot puntúa tu perfil\n> " +
+                                "</roll:1267490690363818006> - Lanza dados con una cantidad especifica y un número máximo de caras\n> " + 
+                                "</rps:1266513484317855796> - Juega a piedra, papel o tijeras con otro usuario\n> " + 
+                                "</ship:1265391944511520898> - Calcula el porcentaje de compatibilidad entre dos usuarios\n> " +
+                                "</ttt:1266535339015540786> - Juega al tres en raya con otro usuario\n "
+                            )
+                            .setColor(0x000000)
+                            .setAuthor({name: client.user.username ,iconURL: client.user.displayAvatarURL({ dynamic: true }),});
+
+                        await i.update({ embeds: [entreteEmbed], components: [selectRow] });
+
+                    } else if (i.values[0] === 'util') {
+                        const utilEmbed = new EmbedBuilder()
+                            .setTitle(`Comandos de utilidad`)
+                            .setDescription(
+                                "> </addbirthday:1268179998464938045> - Añade o actualiza tu cumpleaños\n> " +
+                                "</github:1267503364170842241> - Muestra información de un usuario de GitHub\n> " +
+                                "</listbirthdays:1268179998464938046> - Muestra todos los cumpleaños registrados\n> " + 
+                                "</poll:1267497488684683314> - Realiza una encuesta con opciones separadas por |\n> " + 
+                                "</removebirthday:1268179998464938047> - Elimina tu cumpleaños registrados\n" 
+                                
+                            )
+                            .setColor(0x000000)
+                            .setAuthor({name: client.user.username ,iconURL: client.user.displayAvatarURL({ dynamic: true }),});
+
+                        await i.update({ embeds: [utilEmbed], components: [selectRow] });
                     }
                 }
             } catch (error) {
