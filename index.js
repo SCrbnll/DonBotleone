@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, ActivityType, EmbedBuilder } = require('discord.js');
 const path = require('path')
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
@@ -63,8 +63,28 @@ client.once('ready', () => {
     client.user.setPresence({
         activities: [{ name: `Peaky Blinders`, type: ActivityType.Watching }],
         status: 'online',
-      });
+    });
 });
+
+client.on('guildMemberUpdate', async (oldMember, newMember) => {
+    const boostRoleId = config.roles.boost;
+    const boostChannelId = config.channels.boost;
+    const channel = client.channels.cache.get(boostChannelId);
+
+    if (!oldMember.roles.cache.has(boostRoleId) && newMember.roles.cache.has(boostRoleId)) {
+        if (channel) {
+            const embed = new EmbedBuilder()
+                .setTitle('<:Booster:1260224196412309614> ¡ Nueva mejora en el servidor !')
+                .setDescription(`${newMember.user} ha mejorado el servidor con Nitro.`)
+                .setImage('https://images-ext-1.discordapp.net/external/iOBRdjq7z-LCzd19tOxTPFdRZ2OuHDeYvxr_st1ZfxM/%3Ffit%3D500%252C200%26ssl%3D1/https/i0.wp.com/blackgirlswhobrunch.com/wp-content/uploads/2015/07/giphy.gif?width=550&height=220')
+                .setColor(0x000000)
+                .setTimestamp();
+
+            channel.send({ content: ` ${newMember.user} gracias por boostear este servidor <:Booster:1260224196412309614>`, embeds: [embed] });
+        }
+    }
+});
+
 
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
