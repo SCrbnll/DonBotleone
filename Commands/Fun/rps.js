@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 
 const choices = [
     { name: 'Piedra', emoji: '🪨', beats: 'Tijeras' },
-    { name: 'Papel', emoji: '📄', beats: 'Roca' },
+    { name: 'Papel', emoji: '📄', beats: 'Piedra' },
     { name: 'Tijeras', emoji: '✂️', beats: 'Papel' },
 ]
 module.exports = {
