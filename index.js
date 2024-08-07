@@ -4,6 +4,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
 const config = require('./Utils/config.js');
+const ErrorNotifier = require('./Utils/errorNotifier.js');
 
 const client = new Client({
     intents: [
@@ -17,6 +18,8 @@ const client = new Client({
 const clientco = {
     commands: new Map(), // Simulación de la estructura de comandos del cliente
 };
+
+const errorNotifier = new ErrorNotifier(client);
 
 clientco.commands = new Collection();
 const clientId = config.client_id;
@@ -58,7 +61,7 @@ const rest = new REST({ version: '9' }).setToken(config.token);
     }
 })();
 
-client.once('ready', () => {
+client.once('ready', async () => {
     console.log('Bot is ready!');
     client.user.setPresence({
         activities: [{ name: `Peaky Blinders`, type: ActivityType.Watching }],
@@ -85,6 +88,32 @@ client.on('guildMemberUpdate', async (oldMember, newMember) => {
     }
 });
 
+client.on('guildMemberAdd', async (member) => {
+    console.log(`Nuevo miembro: ${member.user.tag}`);
+    updateMemberCount(member.guild);
+});
+
+client.on('guildMemberRemove', async (member) => {
+    console.log(`Miembro salió: ${member.user.tag}`);
+    updateMemberCount(member.guild);
+});
+
+async function updateMemberCount(guild) {
+    const countChannel = guild.channels.cache.get(config.channels.memberCount);
+    if (!countChannel) {
+        await errorNotifier.notifyErrorEmbed('index.js', 'No se encuentra el canal especificado para mostrar **countChannel**\nCompruebe que el canal existe o realice el comando **/setchannel**', Date.now());
+        return;
+    }
+
+    try {
+        const members = guild.memberCount;
+        await countChannel.setName(`🍷 || Members: ${members}`);
+        console.log('Miembros actuales:', members);
+    } catch (error) {
+        await errorNotifier.notifyErrorEmbed('index.js', 'Error al cambiar el nombre al canal establecido para mostrar **countChannel**', Date.now());
+    }
+
+}
 
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
@@ -100,6 +129,5 @@ client.on('interactionCreate', async interaction => {
         await interaction.reply({ content: '> Ha habido un error ejecutando el comando', ephemeral: true });
     }
 });
-
 
 client.login(config.token);
