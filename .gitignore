@@ -5,4 +5,4 @@ node_modules/
 .env
 
 birthdays.json
-automessages.json
+responses.json

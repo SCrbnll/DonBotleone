@@ -5,6 +5,7 @@ const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
 const config = require('./Utils/config.js');
 const ErrorNotifier = require('./Utils/errorNotifier.js');
+const ResponseManager = require('./Utils/responsesManager.js');
 
 const client = new Client({
     intents: [
@@ -98,6 +99,32 @@ client.on('guildMemberRemove', async (member) => {
     updateMemberCount(member.guild);
 });
 
+client.on('messageCreate', async message => {
+    if (message.author.bot) return;
+
+    const responses = ResponseManager.getAllResponses();
+    const response = responses[message.content.toLowerCase()];
+
+    if (response) {
+        await message.reply(response);
+    }
+});
+
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isCommand()) return;
+
+    const { commandName } = interaction;
+    const command = clientco.commands.get(commandName);
+
+    if (!command) return;
+    try {
+        await command.execute(interaction);
+    } catch (error) {
+        console.error(error);
+        await interaction.reply({ content: '> Ha habido un error ejecutando el comando', ephemeral: true });
+    }
+});
+
 async function updateMemberCount(guild) {
     const countChannel = guild.channels.cache.get(config.channels.memberCount);
     if (!countChannel) {
@@ -114,20 +141,5 @@ async function updateMemberCount(guild) {
     }
 
 }
-
-client.on('interactionCreate', async interaction => {
-    if (!interaction.isCommand()) return;
-
-    const { commandName } = interaction;
-    const command = clientco.commands.get(commandName);
-
-    if (!command) return;
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        await interaction.reply({ content: '> Ha habido un error ejecutando el comando', ephemeral: true });
-    }
-});
 
 client.login(config.token);
