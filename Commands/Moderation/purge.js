@@ -3,7 +3,7 @@ const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('purge')
-        .setDescription('Limpia una cantidad específica de mensajes en un canal.')
+        .setDescription('Limpia una cantidad específica de mensajes.')
         .addIntegerOption(option =>
             option.setName('cantidad')
                 .setDescription('Número de mensajes a eliminar.')
