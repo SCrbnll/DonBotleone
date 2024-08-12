@@ -99,7 +99,7 @@ module.exports = {
                                 "</pokemon:1265391944511520895> - Obtén información sobre un Pokémon\n> " + 
                                 "</shiny:1265391944511520897> - Visualiza el shiny de un pokemon\n> " + 
                                 "</rate:1265391944511520896> - El bot puntúa tu perfil\n> " +
-                                "</roll:1267490690363818006> - Lanza dados con una cantidad especifica y un número máximo de caras\n> " + 
+                                "</roll:1267490690363818006> - Lanza X cantidad de dados con un número máximo de caras\n> " + 
                                 "</rps:1266513484317855796> - Juega a piedra, papel o tijeras con otro usuario\n> " + 
                                 "</ship:1265391944511520898> - Calcula el porcentaje de compatibilidad entre dos usuarios\n> " +
                                 "</ttt:1266535339015540786> - Juega al tres en raya con otro usuario\n "
@@ -113,12 +113,11 @@ module.exports = {
                         const utilEmbed = new EmbedBuilder()
                             .setTitle(`Comandos de utilidad`)
                             .setDescription(
-                                "> </addbirthday:1268179998464938045> - Añade o actualiza tu cumpleaños\n> " +
-                                "</github:1267503364170842241> - Muestra información de un usuario de GitHub\n> " +
-                                "</listbirthdays:1268179998464938046> - Muestra todos los cumpleaños registrados\n> " + 
-                                "</poll:1267497488684683314> - Realiza una encuesta con opciones separadas por |\n> " + 
-                                "</removebirthday:1268179998464938047> - Elimina tu cumpleaños registrados\n" 
-                                
+                                "> </allbirthdays:1272649162336501833> - Muestra todos los cumpleaños registrados\n" + 
+                                "> </birthday add:1272646713877729341> - Añade tu cumpleaños\n" +
+                                "> </birthday remove:1272646713877729341> - Elimina tu cumpleaños\n" +
+                                "> </github:1267503364170842241> - Muestra información de un usuario de GitHub\n" +
+                                "> </poll:1267497488684683314> - Realiza una encuesta con opciones separadas por |\n"
                             )
                             .setColor(0x000000)
                             .setAuthor({name: client.user.username ,iconURL: client.user.displayAvatarURL({ dynamic: true }),});

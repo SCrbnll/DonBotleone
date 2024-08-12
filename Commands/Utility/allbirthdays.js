@@ -1,11 +1,11 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const BirthdayManager = require('./../../Utils/birthdayManager.js');
+const BirthdayManager = require('../../Utils/birthdayManager.js');
 const moment = require('moment');
 require('moment/locale/es');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('listbirthdays')
+        .setName('allbirthdays')
         .setDescription('Muestra todos los cumpleaños registrados.'),
     async execute(interaction) {
         const birthdays = BirthdayManager.getAllBirthdays();
