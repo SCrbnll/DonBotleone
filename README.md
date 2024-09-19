@@ -1,6 +1,10 @@
 # DonBotleone
 
-Este es un **bot de Discord** desarrollado con fines educativos autodidactas usando **discord.js**. Incluye varias funcionalidades básicas y avanzadas, como recordatorios de cumpleaños, auto-respuestas y comandos de moderación.
+Este es un **bot de Discord** desarrollado con fines educativos autodidactas usando **discord.js**. 
+
+Está situado todo el codigo en la rama **develop**.
+
+Incluye varias funcionalidades básicas y avanzadas, como recordatorios de cumpleaños, auto-respuestas y comandos de moderación.
 
 ## Configuración
 
